@@ -60,21 +60,7 @@ module.exports = {
             },
           },
           'postcss-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              additionalData: (content, loaderContext) => {
-                const { resourcePath } = loaderContext;
-
-                const relativePublicPath = path.relative(
-                  resourcePath,
-                  paths.public
-                );
-
-                return `$publicPath: "${relativePublicPath}";${content}`;
-              },
-            },
-          },
+          'sass-loader',
         ],
       },
     ],
@@ -98,4 +84,10 @@ module.exports = {
       },
     }),
   ],
+  devServer: {
+    contentBase: paths.public,
+    watchContentBase: true,
+    writeToDisk: true,
+    inline: true,
+  },
 };
